@@ -168,7 +168,7 @@ function addModular() {
 	furnForm.setFieldValue('ta_audit.ta_modular',ninjaForm.getFieldValue('survey.ta_mod'));
 	
 	}*/
-	furnForm.setFieldValue('ta_audit.ta_id','AUTOGENERATE');
+	//furnForm.setFieldValue('ta_audit.ta_id','AUTOGENERATE');
 	
 	View.panels.get('taAuditDetailsFormMod').enableField('ta_audit.ta_id', false);
 	
@@ -247,13 +247,11 @@ function modCheckSave() {
 		return false;
 	}
 	
-	if (furnForm.getFieldValue('ta_audit.ta_modular')=='Yes' && furnForm.getFieldValue('ta_audit.ta_id')=='AUTOGENERATE') {
+	if (furnForm.getFieldValue('ta_audit.ta_modular')=='Yes' && furnForm.getFieldValue('ta_audit.ta_id')=='') {
 	// alert('true');
 		if(furnForm.canSave()){
 			var survey_id = surveyDet.getFieldValue('survey.survey_id');
-			//var restriction = {'asc_uc_gen.survey_id': survey_id};
-		var restriction = new Ab.view.Restriction();
-		restriction.addClause('asc_uc_gen.survey_id', survey_id,'=');
+			var restriction = {'asc_uc_gen.survey_id': survey_id};
 		aucForm.refresh(restriction,true);
 		aucForm.setFieldValue('asc_uc_gen.prefix','UC');
 		aucForm.save();
@@ -283,34 +281,25 @@ function modCheckSaveMod() {
 	var aucForm = View.panels.get('ascAucGenerator_detailsPanel');
 	var surveyDet = View.panels.get('surveyDet');
 	
-	if(!checkIfModularMod()){
-		return false;
-	}
-	
-	if (furnForm.getFieldValue('ta_audit.ta_modular')=='Yes' && furnForm.getFieldValue('ta_audit.ta_id')=='AUTOGENERATE') {
+	if (furnForm.getFieldValue('ta_audit.ta_modular')=='Yes' && furnForm.getFieldValue('ta_audit.ta_id')=='') {
 	//alert('true');
-		if(furnForm.canSave()){
+		
+		if(!checkIfModularMod()){
+			return false;
+		}
+	
 			var survey_id = surveyDet.getFieldValue('survey.survey_id');
 			//var restriction = {'asc_uc_gen.survey_id': survey_id}; see below (test)
-			//var restriction = ('asc_uc_gen.survey_id', survey_id);
-		var restriction = new Ab.view.Restriction();
-		restriction.addClause('asc_uc_gen.survey_id', survey_id,'=');
+			var restriction = ('asc_uc_gen.survey_id', survey_id);
 		aucForm.refresh(restriction,true);
 		aucForm.setFieldValue('asc_uc_gen.prefix','UC');
 		aucForm.save();
 		
-		furnForm.setFieldValue('ta_audit.ta_id',aucForm.getFieldValue('asc_uc_gen.auc'));
+		var auc = aucForm.getFieldValue('asc_uc_gen.auc');
 		
-		// if (furnForm.getFieldValue('ta_audit.ta_id')=='AUTOGENERATE' || furnForm.getFieldValue('ta_audit.ta_id')=='' || aucForm.getFieldValue('asc_uc_gen.auc')=='' || !aucForm.save()) {
-			// alert('Check if Unifying Code is Generated and click save...');
-		// }
-		if (furnForm.getFieldValue('ta_audit.ta_id')=='AUTOGENERATE' || furnForm.getFieldValue('ta_audit.ta_id')=='' || aucForm.getFieldValue('asc_uc_gen.auc')=='') {
-			alert('Check if Unifying Code is Generated and click save...');
-		}
-		else {
+		furnForm.setFieldValue('ta_audit.ta_id',auc);
+		if(furnForm.canSave()){
 		furnForm.save();
-		}
-		
 		}
 	
 	}

@@ -1045,7 +1045,7 @@
 			<title>Modular</title>
 		</field>
 		<!-- Chard -->
-<!-- 		<field table="ta_audit" name="bl_id"/>  
+		<!-- <field table="ta_audit" name="bl_id"/>  
 		<field table="ta_audit" name="fl_id"/> -->
 		<field table="ta_audit" name="ta_old"/>
 		<field table="ta_audit" name="tag_number"/>
