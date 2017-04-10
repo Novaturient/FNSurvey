@@ -1,0 +1,1549 @@
+<view version="2.0">
+	
+	<!-- <title translatable="true">Furniture Audit</title> -->
+	
+	<js file="ascph-ta-survey-audit.js" />
+	<js file="asc_debug_tools.js"/>
+
+<!--///////////////CSS///////////////-->	
+	
+	<css>
+		span#ShowascTaSum_form_ta_audit\.ta_count {
+		font-size:30px;
+		font-weight: bold;
+		color: blue;
+		
+		}
+		span#ShowascTaSum_form_ta_audit\.taAs_count {
+		font-size:30px;
+		font-weight: bold;
+		color: red;
+		}
+		
+		div#surveyGrid * {
+			font-size:20px;
+			padding:3px;
+		}
+		
+		div#ascphTaRmAudit_treePanel input[type=button] {
+			//align:center;
+			//height:30px;
+			//width:120px;
+			font-size:18px;
+			padding:3px;
+		}
+		
+		div#taAuditGrid * {
+			font-size:18px;
+			padding:3px;
+		}
+		
+		div#taAuditGrid .clearFilterBtn {
+			height:20px;
+			width:20px;
+		}
+		
+		div#taAuditGrid_layoutWrapper button{
+			font-size:19px;
+			padding:3px;
+		}
+		
+		div#taAuditDetailsForm * {
+			font-size:17px;
+			padding:3px;
+			
+		}
+		
+		div#taAuditDetailsForm_layoutWrapper button{
+			font-size:18px;
+			padding:3px;
+		}
+		
+		div#taAuditDetailsForm img.selectValue_Button {
+			//display:none;
+			//padding:3px;
+			visibility:hidden;
+		}
+		
+		select#taAuditDetailsForm_ta_audit\.status {
+			padding:5px;
+			font-size:20px;
+			height:40px;
+		}
+		
+		select#taAuditDetailsForm_ta_audit\.condition {
+			padding:5px;
+			font-size:20px;
+			height:40px;
+		}
+
+		div#abViewdefEditformDrilldownConsole_treePanel * {
+			font-size:18px;
+			padding:3px;
+		}
+		
+		div#abViewdefEditformDrilldownConsole_treePanel .clearFilterBtn {
+			height:20px;
+			width:20px;
+		}
+
+		div#abViewdefEditformDrilldownConsole_detailsPanel img.selectValue_Button {
+			display:none;
+		}
+	
+		.panelToolbar .myActionClass {
+			background-color:#9ac;
+		}
+		.panelToolbar .myActionClass button {
+			color:navy;
+			font-weight: bold;
+		}
+		.panelReport tr.dataRow {
+			background-color:#ebf0eb;
+			//height: 40px;
+			//width: 10px;
+			//font-size: 20px;
+		}
+		.panelReport tr.odd {
+			background-color:#ebebf0;
+		}
+		.panelReport td {
+			border-right:1px solid #9ac;
+		}
+		.panelReport td.button input{
+			border-right:1px solid #9ac;
+			//height:30px;
+			//width:120px;
+		}
+		
+		/* taAuditDetailsFormMod added by Rofel */
+		
+		div#taAuditDetailsFormMod * {
+			font-size:17px;
+			padding:3px;
+			
+		}
+		
+		div#taAuditDetailsFormMod_layoutWrapper button{
+			font-size:18px;
+			padding:3px;
+		}
+		
+		div#taAuditDetailsFormMod img.selectValue_Button {
+			//display:none;
+			//display:none;
+			//padding:3px;
+			visibility:hidden;
+		}
+		
+		select#taAuditDetailsFormMod_ta_audit\.status {
+			padding:5px;
+			font-size:20px;
+			height:40px;
+		}
+		
+		select#taAuditDetailsFormMod_ta_audit\.condition {
+			padding:5px;
+			font-size:20px;
+			height:40px;
+		}
+		
+		/* end of taAuditDetailsFormMod added by Rofel */
+		
+		
+		div#ascphTaRmAudit_treePanel * {
+			font-size:18px;
+			
+		}
+		
+		div#ascphTaRmAudit_treePanel_layoutWrapper button{
+			font-size:17px;
+			padding:3px;
+		}
+		
+		/* abViewdefEditformDrilldownConsole_detailsPanel added by Rofel */
+		
+		div#abViewdefEditformDrilldownConsole_detailsPanel * {
+			font-size:17px;
+			padding:3px;
+			
+		}
+		
+		div#abViewdefEditformDrilldownConsole_detailsPanel_layoutWrapper button{
+			font-size:17px;
+			padding:3px;
+		}
+		
+		div#abViewdefEditformDrilldownConsole_detailsPanel img.selectValue_Button {
+			display:none;
+		}
+		
+		select#abViewdefEditformDrilldownConsole_detailsPanel_ta_audit_comp\.status {
+			padding:5px;
+			font-size:17px;
+			height:40px;
+		}
+		
+		select#abViewdefEditformDrilldownConsole_detailsPanel_ta_audit_comp\.condition {
+			padding:5px;
+			font-size:17px;
+			height:40px;
+		}
+		
+	</css>
+
+<!--///////////////LAYOUT///////////////-->	
+	
+	<layout type="borderLayout" id="mainLayout">
+		<center id="centeros"/>
+		<south id="southeros" initialSize="1px"/>
+	</layout>
+	
+	
+<!--///////////////DATASOURCES///////////////-->
+	
+	<dataSource id="surveyDs">
+		<table name="survey" role="main"/>
+		
+		<field table="survey" name="survey_id"/>
+		<field table="survey" name="survey_date"/>
+		<field table="survey" name="survey_fields"/>
+		
+		<field table="survey" name="description"/>
+		<field table="survey" name="em_id"/>
+		<field table="survey" name="report"/>
+		<field table="survey" name="status"/>
+		
+		<!--Custom fields added to replicate Equipment Survey -->
+		<field table="survey" name="bl_id"/>
+        <field table="survey" name="fl_id"/>
+        <field table="survey" name="dv_id"/>
+        <field table="survey" name="dp_id"/>
+        <field table="survey" name="fn_std"/>
+		<field table="survey" name="ta_count" dataType="number" decimals="0">
+		<sql dialect="generic">(SELECT count(ta_audit.ta_id) FROM ta_audit WHERE ta_audit.survey_id=survey.survey_id)</sql>
+		
+		</field>
+		<field table="survey" name="ta_comp_count" dataType="number" decimals="0">
+		<sql dialect="generic">(SELECT count(ta_audit_comp.ta_id) FROM ta_audit_comp WHERE ta_audit_comp.survey_id=survey.survey_id)</sql>
+		
+		</field>
+		
+		<field table="survey" name="ta_rm_open" dataType="number" decimals="0">
+		<sql dialect="generic">(SELECT count(ta_rm_audit.status) FROM ta_rm_audit WHERE ta_rm_audit.survey_id=survey.survey_id AND ta_rm_audit.status='Open')</sql>
+		
+		</field>
+		
+		<field table="survey" name="ta_fnstd" dataType="text">
+		</field>
+		<field table="survey" name="ta_mod" dataType="text">
+		</field>
+		
+		<sortField table="survey" name="survey_date" ascending="false"/>
+		
+		
+		<restriction type="sql" sql="(survey.survey_fields like '%ta_id%') AND (survey.status like 'Issued') AND 
+		(survey.em_id like '${user.employee.id}')" />
+	</dataSource>
+	
+	<dataSource id="taAuditDs">
+		<table name="ta_audit" role="main"/>
+		<table name="survey" role="standard"/>
+		<table name="ta_rm_audit" role="standard"/>
+		<field table="ta_audit" name="survey_id"/>
+		<field table="ta_audit" name="ta_id"/>
+		<field table="ta_audit" name="fn_std"/>
+		<field table="ta_audit" name="ta_old"/>
+		<field table="ta_audit" name="tag_number"/>
+		<field table="ta_audit" name="bl_id"/>
+		<field table="ta_audit" name="fl_id"/>
+		<field table="ta_audit" name="rm_id"/>
+		
+	<!-- 	<field table="ta_audit" name="dv_id"/>
+		<field table="ta_audit" name="dp_id"/> 
+		
+		<field table="ta_audit" name="em_id"/>-->
+		
+		<field table="survey" name="surStatus" dataType="text">
+		<sql dialect="generic">(SELECT survey.status FROM survey WHERE survey.survey_id=ta_audit.survey_id)</sql>
+		</field>
+		<!-- <field table="ta_rm_audit" name="status" alias="rmStatus"/> -->
+		
+		<field table="ta_audit" name="condition"/>
+		<field table="ta_audit" name="status"/>
+		<field table="ta_audit" name="survey_photo_ta"/>
+		<field table="ta_audit" name="survey_photo_ta2"/>
+		<field table="ta_audit" name="survey_photo_ta3"/>
+		<field table="ta_audit" name="survey_comments"/>
+		<field table="ta_audit" name="date_last_surveyed"/>
+		<field table="ta_audit" name="asc_category"/>
+		<field table="ta_audit" name="ta_comp_count" dataType="number" decimals="0">
+		<sql dialect="generic">(SELECT count(ta_audit_comp.ta_id) FROM ta_audit_comp WHERE ta_audit_comp.survey_id=ta_audit.survey_id AND ta_audit_comp.ta_id=ta_audit.ta_id)</sql>
+		</field>
+		<field table="ta_audit" name="ta_modular" dataType="text" readOnly="true">
+		<sql dialect="generic">(SELECT fnstd.modular FROM fnstd WHERE ta_audit.fn_std=fnstd.fn_std)</sql>
+		</field>
+		
+		<field table="ta_audit" name="asc_panel_owned"/>
+		<field table="ta_audit" name="asc_panel_shared"/>
+	</dataSource>
+	
+	<dataSource id="taAuditDs2">
+	
+		<table name="ta_audit" role="main"/>
+		<table name="survey" role="standard"/>
+		
+		<field table="ta_audit" name="ta_id"/>
+		<field table="ta_audit" name="bl_id"/>
+		<field table="ta_audit" name="fl_id"/>
+		<field table="ta_audit" name="rm_id"/>
+		<field table="ta_audit" name="dv_id"/>
+		<field table="ta_audit" name="dp_id"/>
+		<field table="ta_audit" name="fn_std"/>
+		<field table="ta_audit" name="em_id"/>
+		<field table="ta_audit" name="status"/>
+		<field table="ta_audit" name="survey_id"/>
+		<field table="ta_audit" name="status"/>
+		<field table="ta_audit" name="condition"/>
+		<field table="ta_audit" name="survey_photo_ta"/>
+		<field table="ta_audit" name="survey_comments"/>
+		<field table="ta_audit" name="date_last_surveyed"/>
+	</dataSource>
+	
+	<dataSource id="ascphTaRmAudit_ds_0">
+        <table name="ta_rm_audit" role="main"/>
+        <field table="ta_rm_audit" name="survey_id"/>
+        <field table="ta_rm_audit" name="rm_id"/>
+        <field table="ta_rm_audit" name="fl_id"/>
+        <field table="ta_rm_audit" name="bl_id"/>
+        <field table="ta_rm_audit" name="status"/>
+        <field table="ta_rm_audit" name="comments"/>
+		<field table="ta_rm_audit" name="ta_count" dataType="numeric" readOnly="true" decimals="0">
+		<sql dialect="generic">(SELECT COUNT(ta_id) FROM ta_audit WHERE ta_audit.bl_id=ta_rm_audit.bl_id AND ta_audit.fl_id=ta_rm_audit.fl_id AND ta_audit.rm_id=ta_rm_audit.rm_id AND ta_audit.survey_id=ta_rm_audit.survey_id)</sql>
+		</field>
+		<field table="ta_rm_audit" name="rm_txt" dataType="text">
+		<sql dialect="generic">(RTRIM(bl_id)+'/'+RTRIM(fl_id)+'/'+RTRIM(rm_id))</sql>
+		</field>
+    
+    </dataSource>
+	
+	<dataSource id="ascphTaRmAudit_ds_1">
+        <table name="ta_rm_audit" role="main"/>
+        <field table="ta_rm_audit" name="survey_id"/>
+        <field table="ta_rm_audit" name="rm_id"/>
+        <field table="ta_rm_audit" name="fl_id"/>
+        <field table="ta_rm_audit" name="bl_id"/>
+        <field table="ta_rm_audit" name="status"/>
+        <field table="ta_rm_audit" name="comments"/>
+        <field table="ta_rm_audit" name="survey_photo_ta"/>
+        <field table="ta_rm_audit" name="survey_photo_ta2"/>
+        <field table="ta_rm_audit" name="survey_photo_ta3"/>
+        <field table="ta_rm_audit" name="survey_photo_ta4"/>
+    
+    </dataSource>
+	
+	<dataSource id="ascphRm_ds_1">
+        <table name="rm" role="main"/>
+        <field table="rm" name="rm_id"/>
+        <field table="rm" name="fl_id"/>
+        <field table="rm" name="bl_id"/>
+    
+    </dataSource>
+	
+	<dataSource id="ascAucGenerator_ds_1">
+        <table name="asc_uc_gen" role="main"/>
+        <field table="asc_uc_gen" name="unifying_id"/>
+        <field table="asc_uc_gen" name="auc"/>
+        <field table="asc_uc_gen" name="prefix"/>
+        <field table="asc_uc_gen" name="survey_id"/>
+    
+    </dataSource>
+	
+	<dataSource id="ascTaTaCompUnion_ds">
+	
+		<sql>
+			SELECT
+			NULL AS ta_id,
+			ta.ta_id AS ta_comp_id,
+			ta.fn_std AS fn_std,
+			(SELECT TOP 1 fnstd.modular FROM fnstd WHERE ta.fn_std=fnstd.fn_std) AS modular
+			FROM ta
+			UNION
+			SELECT ta_components.ta_id  AS ta_id,
+			ta_components.ta_comp_id AS ta_comp_id,
+			ta.fn_std AS fn_std,
+			fnstd.modular AS modular
+			FROM ta_components
+			LEFT JOIN ta ON (ta.ta_id=ta_components.ta_id)
+			LEFT JOIN fnstd ON (ta.fn_std=fnstd.fn_std)
+		</sql>
+	
+        <table name="ta_components" role="main"/>
+        <table name="fnstd" role="standard"/>
+        <field table="ta_components" name="ta_id"  dataType="text"/>
+        <field table="ta_components" name="ta_comp_id"  dataType="text"/>
+        <field table="ta_components" name="fn_std"  dataType="text"/>
+        <field table="fnstd" name="modular" dataType="text"/>
+    
+    </dataSource>
+	
+	<dataSource id="ascTaSum_ds">
+		<sql>
+
+			SELECT x.survey_id
+				,x.bl_id
+				,x.fl_id
+				,x.rm_id
+				,x.ta_count
+				,(
+					SELECT COUNT(a.ta_id)
+					FROM ta_audit a
+					LEFT JOIN fnstd ON fnstd.fn_std = a.fn_std
+					WHERE a.survey_id = x.survey_id
+						AND a.bl_id = x.bl_id
+						AND a.fl_id = x.fl_id
+						AND a.rm_id = x.rm_id
+						AND fnstd.modular = 'Yes'
+					) AS tamo_count
+				,(
+					SELECT COUNT(a.ta_id)
+					FROM ta_audit a
+					LEFT JOIN fnstd ON fnstd.fn_std = a.fn_std
+					WHERE a.survey_id = x.survey_id
+						AND a.bl_id = x.bl_id
+						AND a.fl_id = x.fl_id
+						AND a.rm_id = x.rm_id
+						AND fnstd.modular = 'No'
+					) AS taf_count
+				,(
+					SELECT COUNT(ta_comp_id)
+					FROM ta_audit_comp AS b
+					WHERE b.survey_id = x.survey_id
+						AND b.ta_id IN (
+							SELECT c.ta_id
+							FROM ta_audit AS c
+							WHERE c.survey_id = x.survey_id
+								AND c.bl_id = x.bl_id
+								AND c.fl_id = x.fl_id
+								AND c.rm_id = x.rm_id
+							)
+					) AS taComp_count
+				,(
+					SELECT COUNT(a.ta_id)
+					FROM ta_audit a
+					LEFT JOIN fnstd ON fnstd.fn_std = a.fn_std
+					WHERE a.survey_id = x.survey_id
+						AND a.bl_id = x.bl_id
+						AND a.fl_id = x.fl_id
+						AND a.rm_id = x.rm_id
+						AND fnstd.modular = 'No'
+					) + (
+					SELECT COUNT(ta_comp_id)
+					FROM ta_audit_comp d
+					WHERE d.survey_id = x.survey_id
+						AND d.ta_id IN (
+							SELECT e.ta_id
+							FROM ta_audit e
+							WHERE e.survey_id = x.survey_id
+								AND e.bl_id = x.bl_id
+								AND e.fl_id = x.fl_id
+								AND e.rm_id = x.rm_id
+							)
+					) AS taAs_count 
+					FROM (
+				SELECT DISTINCT x.survey_id
+					,x.bl_id
+					,x.fl_id
+					,x.rm_id
+					,count(ta_id) AS ta_count
+				FROM ta_audit AS x LEFT
+				JOIN fnstd ON (x.fn_std = fnstd.fn_std)
+				GROUP BY x.survey_id
+					,x.bl_id
+					,x.fl_id
+					,x.rm_id
+				) AS x
+		</sql>
+	
+        <table name="ta_audit" role="main"/>
+       
+        <field table="ta_audit" name="survey_id"/>
+        <field table="ta_audit" name="bl_id"/>
+        <field table="ta_audit" name="fl_id"/>
+        <field table="ta_audit" name="rm_id"/>
+        <field table="ta_audit" name="ta_count"  dataType="number" decimals="0"/>
+        <field table="ta_audit" name="tamo_count"  dataType="number" decimals="0"/>
+        <field table="ta_audit" name="taf_count"  dataType="number" decimals="0"/>
+        <field table="ta_audit" name="taComp_count"  dataType="number" decimals="0"/>
+        <field table="ta_audit" name="taAs_count"  dataType="number" decimals="0"/>
+        
+    
+    </dataSource>
+	
+	<dataSource id="abViewdefEditformDrilldownConsole_ds_1">
+        <table name="ta_audit_comp" role="main"/>
+        <field table="ta_audit_comp" name="survey_id"/>
+        <field table="ta_audit_comp" name="ta_id"/>
+        <field table="ta_audit_comp" name="ta_comp_id"/>
+        
+        
+        <field table="ta_audit_comp" name="dp_id"/>
+        <field table="ta_audit_comp" name="dv_id"/>
+        <field table="ta_audit_comp" name="em_id"/>
+		<field table="ta_audit_comp" name="bl_id"/>
+        <field table="ta_audit_comp" name="fl_id"/>
+		<field table="ta_audit_comp" name="rm_id"/>
+		<field table="ta_audit_comp" name="condition"/>
+        <field table="ta_audit_comp" name="fn_std"/>
+        <field table="ta_audit_comp" name="cmp_std"/>
+        
+        <field table="ta_audit_comp" name="status"/>
+        <field table="ta_audit_comp" name="survey_date"/>
+        <field table="ta_audit_comp" name="ta_old"/>
+        <field table="ta_audit_comp" name="tag_number"/>
+    
+    </dataSource>
+	
+	<dataSource id="abViewdefEditformDrilldownConsole_ds_0">
+        <table name="ta_audit_comp" role="main"/>
+        <field table="ta_audit_comp" name="survey_id"/>
+        <field table="ta_audit_comp" name="ta_id"/>
+        <field table="ta_audit_comp" name="ta_comp_id"/>
+        <field table="ta_audit_comp" name="bl_id"/>
+        <field table="ta_audit_comp" name="condition"/>
+        <field table="ta_audit_comp" name="dp_id"/>
+        <field table="ta_audit_comp" name="dv_id"/>
+        <field table="ta_audit_comp" name="em_id"/>
+        <field table="ta_audit_comp" name="fl_id"/>
+        <field table="ta_audit_comp" name="fn_std"/>
+        <field table="ta_audit_comp" name="cmp_std"/>
+        <field table="ta_audit_comp" name="rm_id"/>
+        <field table="ta_audit_comp" name="status"/>
+        <field table="ta_audit_comp" name="survey_date"/>
+        <field table="ta_audit_comp" name="ta_old"/>
+        <field table="ta_audit_comp" name="tag_number"/>
+    
+    </dataSource>
+	
+	<!--JEROME-->
+	<dataSource id="survey_detailsDs">
+		<table name="survey" role="main"/>
+		
+		<field table="survey" name="asc_survey_photo1" readOnly="false"/>
+		<field table="survey" name="asc_survey_photo2" readOnly="false"/>
+		<field table="survey" name="asc_survey_photo3" readOnly="false"/>
+		<field table="survey" name="asc_survey_photo4" readOnly="false"/>
+		
+		
+		<field table="survey" name="survey_id" readOnly="true"/>
+		<field table="survey" name="survey_date" readOnly="true"/>
+		
+		
+		<field table="survey" name="description" readOnly="true"/>
+		<field table="survey" name="em_id" readOnly="true"/>
+		<field table="survey" name="report" readOnly="true"/>
+		<field table="survey" name="status" readOnly="true"/>
+		
+		<!--Custom fields added to replicate Equipment Survey -->
+		<!-- <field table="survey" name="bl_id" readOnly="true"/>
+        <field table="survey" name="fl_id" readOnly="true"/>
+        <field table="survey" name="rm_id" readOnly="true"/>
+        <field table="survey" name="dv_id" readOnly="true"/>
+        <field table="survey" name="dp_id" readOnly="true"/>
+        <field table="survey" name="fn_std" readOnly="true"/> -->
+		
+		<sortField table="survey" name="survey_date" ascending="false"/>
+		
+		<restriction type="sql" sql="(survey.survey_fields like '%ta_id%')" />
+	</dataSource>
+	<!-- <panel type="html" id="instructionsPanel"> -->
+    
+	<!-- </panel> -->
+	
+<!--///////////////PANELS///////////////-->
+	
+	<panel id="surveyGrid"  type="grid" dataSource="surveyDs" region="center">
+		<title>Select Survey</title>
+	
+		<field table="survey" name="survey_id" />
+		<field table="survey" name="survey_date" />
+		<field table="survey" name="description" />
+		<field table="survey" name="ta_rm_open" hidden="true"/>
+		
+		<field controlType="button" name="editSurveyTaskButton">
+			<title>Start Survey</title>
+			
+			<command type="showPanel" panelId="surveyDet" />
+			<command type="showPanel" panelId="surveyGrid" show="false"/>
+			<command type="showPanel" panelId="taAuditDetailsForm" show="false"/>
+		<!--	<command type="showPanel" panelId="taAuditGrid" />-->
+			<command type="showPanel" panelId="ascphTaRmAudit_treePanel" />
+			
+		</field>
+		<!--
+		<field id="closeSurveyButton" controlType="button" onclick="onCloseSurvey" hidden="true">
+			<title>Close Survey</title>
+		</field>
+		-->
+		
+		<field name="completeSurveyButton" controlType="button" onclick="onCompleteSurvey">
+			<title>Complete Survey</title>
+		</field>
+		
+		<!--JEROME-->
+		<field controlType="button" name="showSurveyDetails">
+			<title>Survey Details</title>
+			<command type="openDialog" panelId="survey_details" show="true" width="690" height="230" />
+		</field>
+		
+	</panel>
+	<!-- #1 LESTER 06-13-2016-->
+	<panel id="surveyDet" type="form" dataSource="surveyDs" region="center" columns="3" showOnLoad="false">
+		<title>Survey Details</title>
+	
+		<field table="survey" name="survey_id" readOnly="true"/>
+		<field table="survey" name="survey_date"  readOnly="true"/>
+		<field table="survey" name="description"  readOnly="true"/>
+		<field table="survey" name="status"  readOnly="true" hidden="true"/>
+		<field table="survey" name="ta_rm_open" dataType="number" decimals="0" readOnly="true">
+		<title>Open Survey Area</title>
+		
+		</field>
+		<field table="survey" name="ta_count" dataType="number" decimals="0" readOnly="true" hidden="false">
+		<title>Furniture Count</title>
+		</field>
+		<field table="survey" name="ta_comp_count" dataType="number" decimals="0" readOnly="true">
+		<title>Component Count</title>
+		</field>
+		
+		
+	</panel>
+	
+	<panel id="ascphTaRmAudit_treePanel" type="grid" dataSource="ascphTaRmAudit_ds_0" recordLimit="10" showOnLoad="false" selectionEnabled="true">
+        <title translatable="true">Furniture Room Audit</title>
+
+		<action id="back0">
+			<title>Back</title>
+			
+			<command type="showPanel" panelId="surveyGrid" applyParentRestriction="false"/>
+			<command type="showPanel" panelId="taAuditGrid" show="false"/>
+			<command type="showPanel" panelId="taAuditDetailsForm" show="false"/>
+			<command type="showPanel" panelId="abViewdefEditformDrilldownConsole_treePanel" show="false"/>
+			<command type="showPanel" panelId="surveyDet" show="false"/>
+			<command type="showPanel" panelId="ascphTaRmAudit_treePanel" show="false" applyParentRestriction="false"/>
+		</action>
+		
+        <action id="ascphTaRmAudit_addNew" enabled="true">
+            <title translatable="true">Add New</title>
+            <command type="showPanel" panelId="ascphTaRmAudit_detailsPanel" newRecord="true" show="false"/>
+            <command type="showPanel" panelId="ascphTaRmAudit_rmSel" />
+			<command type="showPanel" panelId="ascphTaRmAudit_treePanel" show="false" applyParentRestriction="false"/>
+        </action>
+		
+        <action id="ascphTaRmAudit_refresh">
+            <title translatable="true">Refresh</title>
+            <command type="showPanel" panelId="ascphTaRmAudit_treePanel"/>
+			<command type="showPanel" panelId="surveyDet"/>
+        </action>
+		
+		<field id="editRoomAssign" controlType="button" enabled="${record['ta_rm_audit.status']=='Open'}">
+			<title>Start</title>
+			
+			<command type="showPanel" panelId="taAuditGrid" />
+            <command type="showPanel" panelId="ascphTaRmAudit_treePanel" show="false"/>
+			<command type="showPanel" panelId="surveyDet" show="false"/>
+			<command type="callFunction" functionName="startRmDet"/>
+		</field>
+		
+		<field table="ta_rm_audit" name="ta_count" dataType="numeric" readOnly="true" decimals="0" controlType="link">
+		<title>Furniture Count</title>
+			<command type="showPanel" panelId="ascphTaRmAudit_detailsPanel" show="true"/>
+			<command type="showPanel" panelId="ascTaSum_form" show="true"/>
+			
+			<command type="showPanel" panelId="taAuditGridView" show="true"/>
+			<command type="showPanel" panelId="ascphTaRmAudit_treePanel" show="false" applyParentRestriction="false"/>
+			<command type="callFunction" functionName="showRmDet"/>
+		</field>		
+		
+        <field table="ta_rm_audit" name="survey_id" controlType="link" hidden="true">
+            <command type="showPanel" panelId="ascphTaRmAudit_detailsPanel" show="true"/>
+			<command type="showPanel" panelId="ascTaSum_form" show="true"/>
+            <command type="showPanel" panelId="taAuditGridView" show="true"/>
+			<command type="showPanel" panelId="ascphTaRmAudit_treePanel" show="false" applyParentRestriction="false"/>
+			<command type="callFunction" functionName="showRmDet"/>
+        </field>
+		
+		<field table="ta_rm_audit" name="rm_txt" dataType="text"  controlType="link">
+		<title>Room</title>
+		<command type="showPanel" panelId="ascphTaRmAudit_detailsPanel" show="true"/>
+		<command type="showPanel" panelId="ascTaSum_form" show="true"/>
+             <command type="showPanel" panelId="taAuditGridView" show="true"/>
+			<command type="showPanel" panelId="ascphTaRmAudit_treePanel" show="false" applyParentRestriction="false"/>
+			<command type="callFunction" functionName="showRmDet"/>
+		
+		</field>
+		
+        <field table="ta_rm_audit" name="rm_id" controlType="link" hidden="true">
+             <command type="showPanel" panelId="ascphTaRmAudit_detailsPanel" show="true"/>
+			 <command type="showPanel" panelId="ascTaSum_form" show="true"/>
+             <command type="showPanel" panelId="taAuditGridView" show="true"/>
+			<command type="showPanel" panelId="ascphTaRmAudit_treePanel" show="false" applyParentRestriction="false"/>
+			<command type="callFunction" functionName="showRmDet"/>
+        </field>
+		<field table="ta_rm_audit" name="fl_id" controlType="link" hidden="true">
+            <command type="showPanel" panelId="ascphTaRmAudit_detailsPanel" show="true"/>
+			<command type="showPanel" panelId="ascTaSum_form" show="true"/>
+            <command type="showPanel" panelId="taAuditGridView" show="true"/>
+			<command type="showPanel" panelId="ascphTaRmAudit_treePanel" show="false" applyParentRestriction="false"/>
+			<command type="callFunction" functionName="showRmDet"/>
+        </field>
+		<field table="ta_rm_audit" name="bl_id" controlType="link" hidden="true">
+            <command type="showPanel" panelId="ascphTaRmAudit_detailsPanel" show="true"/>
+			<command type="showPanel" panelId="ascTaSum_form" show="true"/>
+            <command type="showPanel" panelId="taAuditGridView" show="true"/>
+			<command type="showPanel" panelId="ascphTaRmAudit_treePanel" show="false" applyParentRestriction="false"/>
+			<command type="callFunction" functionName="showRmDet"/>
+        </field>
+        <field table="ta_rm_audit" name="status" >
+            <command type="showPanel" panelId="ascphTaRmAudit_detailsPanel"/>
+        </field>
+        <field table="ta_rm_audit" name="comments" >
+            <command type="showPanel" panelId="ascphTaRmAudit_detailsPanel"/>
+        </field>
+		<field id="closeRoomAssign" controlType="button" enabled="${record['ta_rm_audit.status']=='Open'}" onclick="closeRoom">
+			<title>Close Survey</title>
+			
+		</field>
+        <indexField table="ta_rm_audit" name="rm_id"/>
+    </panel>
+	
+	
+	<panel id="ascphTaRmAudit_detailsPanel" type="form" dataSource="ascphTaRmAudit_ds_1" showOnLoad="false" labelsPosition="left" columns="3" region="center">
+        <title translatable="true">Furniture Room Audit</title>
+        <action id="ascphTaRmAudit_cancel">
+            <title translatable="true">Back</title>
+            <command type="showPanel" panelId="ascphTaRmAudit_detailsPanel" show="false"/>
+			<command type="showPanel" panelId="ascTaSum_form" show="false"/>
+			<command type="showPanel" panelId="taAuditGridView" show="false" applyParentRestriction="false"/>
+			<command type="showPanel" panelId="taAuditGrid" show="false" applyParentRestriction="false"/>
+			<command type="showPanel" panelId="ascphTaRmAudit_treePanel" show="true" applyParentRestriction="false"/>
+        </action>
+		<action id="ascphTaRmAudit_save">
+            <title translatable="true">Save</title>
+            <command type="saveForm"/>
+            
+        </action>
+        <action id="ascphTaRmAudit_delete">
+            <title translatable="true">Delete</title>
+            <command type="deleteRecord"/>
+            <command type="showPanel" panelId="ascphTaRmAudit_detailsPanel" show="false"/>
+			<command type="showPanel" panelId="ascTaSum_form" show="false"/>
+			<command type="showPanel" panelId="taAuditGridView" show="false" applyParentRestriction="false"/>
+			<command type="showPanel" panelId="taAuditGrid" show="false" applyParentRestriction="false"/>
+            <command type="showPanel" panelId="ascphTaRmAudit_treePanel" applyParentRestriction="false"/>
+        </action>
+            
+        <field name="survey_id" table="ta_rm_audit" readOnly="true" hidden="true"/>
+		 
+		 
+        <field name="rm_id" table="ta_rm_audit" readOnly="true"/>
+        <field name="fl_id" table="ta_rm_audit" readOnly="true"/>
+        <field name="bl_id" table="ta_rm_audit" readOnly="true"/>
+       
+        <field name="comments" table="ta_rm_audit" colspan="1" rowspan="3"/>
+		
+		 <field table="ta_rm_audit" name="survey_photo_ta"/>
+        <field table="ta_rm_audit" name="survey_photo_ta2"/>
+		
+        <field table="ta_rm_audit" name="survey_photo_ta3"/>
+        <field table="ta_rm_audit" name="survey_photo_ta4"/>
+		<field name="status" table="ta_rm_audit" readOnly="true"/>
+    </panel>
+	
+	
+	<!-- <panel id="ascphTaRmAudit_detailsPanelx" type="columnReport" dataSource="ascphTaRmAudit_ds_1" showOnLoad="false" labelsPosition="left" columns="2" region="center"> -->
+        <!-- <title translatable="true">Furniture Room Audit</title> -->
+        <!-- <action id="ascphTaRmAudit_cancel"> -->
+            <!-- <title translatable="true">Back</title> -->
+            <!-- <command type="showPanel" panelId="ascphTaRmAudit_detailsPanel" show="false"/> -->
+			<!-- <command type="showPanel" panelId="taAuditGrid" show="false"/> -->
+			<!-- <command type="showPanel" panelId="ascphTaRmAudit_treePanel" show="true" applyParentRestriction="false"/> -->
+        <!-- </action> -->
+		
+            
+        <!-- <field name="survey_id" table="ta_rm_audit" showSelectValueAction="" readOnly="true" hidden="false"/> -->
+		 <!-- <field name="status" table="ta_rm_audit" showSelectValueAction="" readOnly="true"/> -->
+		 
+        <!-- <field name="rm_id" table="ta_rm_audit" showSelectValueAction="" readOnly="true"/> -->
+        <!-- <field name="fl_id" table="ta_rm_audit" showSelectValueAction="" readOnly="true"/> -->
+        <!-- <field name="bl_id" table="ta_rm_audit" showSelectValueAction="" readOnly="true"/> -->
+       <!-- <field/> -->
+        <!-- <field name="comments" table="ta_rm_audit" showSelectValueAction="" colspan="2"/> -->
+		
+		 <!-- <field table="ta_rm_audit" name="survey_photo_ta"/> -->
+        <!-- <field table="ta_rm_audit" name="survey_photo_ta2"/> -->
+		
+        <!-- <field table="ta_rm_audit" name="survey_photo_ta3"/> -->
+        <!-- <field table="ta_rm_audit" name="survey_photo_ta4"/> -->
+    <!-- </panel> -->
+	
+	
+	<panel id="ascphTaRmAudit_rmSel" type="grid" dataSource="ascphRm_ds_1" showOnLoad="false" selectionEnabled="true">
+        <title translatable="true">Furniture Room Audit</title>
+      <action id="ascphTaRmAudit_cancel">
+            <title translatable="true">Back</title>
+            <command type="showPanel" panelId="ascphTaRmAudit_rmSel" show="false"/>
+			<command type="showPanel" panelId="ascphTaRmAudit_treePanel" show="true" applyParentRestriction="false"/>
+        </action>
+        <field table="rm" name="rm_id" controlType="link">
+            <command type="showPanel" panelId="ascphTaRmAudit_detailsPanel" newRecord="true" show="true"/>
+            <command type="callFunction" functionName="keepSurveyCode()"/>
+            <command type="showPanel" panelId="ascphTaRmAudit_rmSel" show="false"/>
+        </field>
+        <field table="rm" name="fl_id" controlType="link">
+            <command type="showPanel" panelId="ascphTaRmAudit_detailsPanel" newRecord="true" show="true"/>
+            <command type="callFunction" functionName="keepSurveyCode()"/>
+            <command type="showPanel" panelId="ascphTaRmAudit_rmSel" show="false"/>
+        </field>
+        <field table="rm" name="bl_id" controlType="link">
+            <command type="showPanel" panelId="ascphTaRmAudit_detailsPanel" newRecord="true" show="true"/>
+            <command type="callFunction" functionName="keepSurveyCode()"/>
+            <command type="showPanel" panelId="ascphTaRmAudit_rmSel" show="false"/>
+        </field>
+      
+  
+    </panel>
+	
+	
+	
+	<panel id="ascAucGenerator_detailsPanel" type="form" dataSource="ascAucGenerator_ds_1" showOnLoad="true" labelsPosition="top" columns="2" region="south">
+        <title translatable="true">Archibus Unifying Code Generator</title>
+        <action id="ascAucGenerator_save">
+            <title translatable="true">Save</title>
+            <command type="saveForm"/>
+            <command type="showPanel" panelId="ascAucGenerator_treePanel" applyParentRestriction="false"/>
+        </action>
+        <action id="ascAucGenerator_delete">
+            <title translatable="true">Delete</title>
+            <command type="deleteRecord"/>
+            <command type="showPanel" panelId="ascAucGenerator_detailsPanel" show="false"/>
+            <command type="showPanel" panelId="ascAucGenerator_treePanel" applyParentRestriction="false"/>
+        </action>
+        <action id="ascAucGenerator_cancel">
+            <title translatable="true">Cancel</title>
+            <command type="showPanel" panelId="ascAucGenerator_detailsPanel" show="false"/>
+        </action>    
+        <field name="unifying_id" table="asc_uc_gen" />
+        <field name="auc" table="asc_uc_gen" />
+        <field name="prefix" table="asc_uc_gen" />
+        <field name="survey_id" table="asc_uc_gen" />
+    </panel>
+	
+	
+	
+	
+	
+	<panel id="ascTaTaCompUnion_form" type="form" dataSource="ascTaTaCompUnion_ds" showOnLoad="false" selectionEnabled="true">
+        <title translatable="true">Funiture-Component PCN List</title>
+      
+      
+  
+    </panel>
+	
+	
+	
+	<panel id="ascTaSum_form" type="form" dataSource="ascTaSum_ds" showOnLoad="false" selectionEnabled="true" columns="2">
+	 
+        <field table="ta_audit" name="survey_id"/>
+        <field table="ta_audit" name="bl_id"/>
+        <field table="ta_audit" name="fl_id"/>
+        <field table="ta_audit" name="rm_id"/>
+		
+		<fieldset>
+			<title>Furniture Summary</title>
+        
+			<field table="ta_audit" name="taf_count"   dataType="number" decimals="0" readOnly="true">
+			<title>Furniture Count</title>
+			</field>
+			
+			<field table="ta_audit" name="tamo_count">
+			<title>Modular Count</title>
+			</field>
+			
+			<field value="----------">
+			<title>----------</title>
+			</field>
+			
+			<field table="ta_audit" name="ta_count">
+			<title>Total Furniture</title>
+			</field>
+		</fieldset>
+		
+		<fieldset>
+			<title>Asset Summary</title>
+			
+			<field table="ta_audit" name="taf_count">
+			<title>Furniture Count</title>
+			</field>
+			
+			<field table="ta_audit" name="taComp_count">
+			<title>Component Count</title>
+			</field>
+			
+			<field value="----------">
+			<title>----------</title>
+			</field>
+			
+			<field table="ta_audit" name="taAs_count">
+			<title>Total Assets</title>
+			</field>
+			
+		</fieldset>
+		
+		<fieldset/>
+		<fieldset/>
+  
+    </panel>
+
+	
+	<!-- #1 LESTER 06-13-2016 END-->
+	
+	
+	<panel id="ninjaForm" type="form" dataSource="surveyDs" region="south">
+		<title translatable="true">Ninja Form</title>
+		
+		<field table="survey" name="survey_id" />
+		<field table="survey" name="status" value="Audit Completed" />
+		<field table="survey" name="ta_fnstd" dataType="text">
+		</field>
+		<field table="survey" name="ta_mod" dataType="text">
+		</field>
+	</panel>
+	
+	<panel id="taAuditGrid" type="grid" dataSource="taAuditDs" showIndexAndFilterOnLoad="true" recordLimit="15" showOnLoad="false" region="center" >
+		<title translatable="true">Furniture Survey Items </title>
+		
+		<action id="back1">
+			<title>Back</title>
+			
+			<command type="showPanel" panelId="taAuditGrid" show="false"/>
+			<command type="showPanel" panelId="taAuditDetailsForm" show="false"/>
+			<command type="showPanel" panelId="abViewdefEditformDrilldownConsole_treePanel" show="false"/>
+			<command type="showPanel" panelId="surveyGrid" applyParentRestriction="false" show="false"/>
+			<command type="showPanel" panelId="surveyDet" show="true" applyParentRestriction="false"/>
+			<command type="showPanel" panelId="ascphTaRmAudit_treePanel" show="true" applyParentRestriction="false"/>
+			
+		</action>
+		
+		<action id="exportTXFR">
+			<title>DATA</title>
+			<command type="exportPanel" outputType="txfr" panelId="taAuditGrid"/>
+		</action>
+		
+		<action id="add">
+			<!-- jerome jerome -->
+			<title>Add Furniture</title>
+			
+			<command type="showPanel" panelId="taAuditGrid" show="false" />
+			<command type="showPanel" panelId="taAuditDetailsForm" newRecord="true"/>
+			<command type="showPanel" panelId="surveyDet" show="false" />
+			<!--<command type="showPanel" panelId="abViewdefEditformDrilldownConsole_treePanel" />-->
+			
+			<command type="callFunction" functionName="addFurniture()" />
+			<command type="callFunction" functionName="showCalendar()" />
+		</action>
+		
+		<action id="addM">
+			<title>Add Modular</title>
+			
+			<command type="showPanel" panelId="taAuditGrid" show="false" />
+			<command type="showPanel" panelId="taAuditDetailsFormMod" newRecord="true"/>
+			<command type="showPanel" panelId="surveyDet" show="false" />
+			<!--<command type="showPanel" panelId="abViewdefEditformDrilldownConsole_treePanel" />-->
+			
+			<command type="callFunction" functionName="addModular()" />
+			<command type="callFunction" functionName="showCalendar()" />
+		</action>
+		
+		<!-- ASC_PH LJM 2017-03-13 C002 -->
+		
+		<field controlType="button" name="editSurveyTaskButton" enabled="${record['ta_rm_audit.status'] != 'Closed'}" onclick="editFurniture">
+			<title>Audit</title>
+			
+			<command type="showPanel" panelId="taAuditGrid" show="false" />
+			<!--<command type="showPanel" panelId="taAuditDetailsForm" />-->
+			<command type="showPanel" panelId="abViewdefEditformDrilldownConsole_treePanel" />
+			
+			
+			<command type="showPanel" panelId="surveyDet" show="false"/>
+			<command type="showPanel" panelId="ascphTaRmAudit_treePanel" show="false"/>
+			
+			
+			<command type="callFunction" functionName="showCalendar()" />
+		</field>
+		
+		<field controlType="button" name="addCompButton" enabled="${record['survey.status'] != 'Closed'}" hidden="true" >
+			<title>Add Component</title>
+			
+			<command type="showPanel" panelId="taAuditGrid" show="false" />
+			<command type="showPanel" panelId="taAuditDetailsForm" show="false"/>
+			<command type="showPanel" panelId="abViewdefEditformDrilldownConsole_treePanel" />
+			<command type="showPanel" panelId="abViewdefEditformDrilldownConsole_detailsPanel" newRecord="true"/>
+			
+			<command type="callFunction" functionName="editFurniture()" />
+			<command type="showPanel" panelId="surveyDet" show="false"/>
+			 <command type="showPanel" panelId="ascphTaRmAudit_treePanel" show="false"/>
+		</field>
+		
+		<field table="ta_audit" name="ta_comp_count" dataType="number" decimals="0"  style="size:30;">
+			<title>Component Count</title>
+			<command type="openDialog" panelId="abViewdefEditformDrilldownConsole_treePanel"/>
+		</field>
+		
+		<field table="ta_audit" name="survey_id" hidden="true"/>
+		
+		<field table="ta_audit" name="ta_id">
+			<command type="openDialog" panelId="abViewdefEditformDrilldownConsole_treePanel"/>
+		</field>
+		
+		<field table="ta_audit" name="fn_std"/>
+		
+		<field table="ta_audit" name="ta_modular" dataType="text" readOnly="true" hidden="false">
+			<title>Modular</title>
+		</field>
+		
+		<field table="ta_audit" name="bl_id" hidden="true"/>
+		<field table="ta_audit" name="fl_id" hidden="true"/>
+		<field table="ta_audit" name="rm_id"/>
+		<field table="ta_audit" name="ta_old"/>
+		<field table="ta_audit" name="tag_number"/>
+		<field table="ta_audit" name="status"/>
+		<!-- <field table="ta_rm_audit" name="rmStatus"/> -->
+		<field table="ta_audit" name="condition"/>
+		
+		<field table="ta_audit" name="survey_comments"/>
+		<field table="ta_audit" name="date_last_surveyed" required="true" value=""/>
+			
+		<indexField table="ta_audit" name="ta_id"/>
+	</panel>
+	
+	 <panel id="taAuditGridView" type="grid" dataSource="taAuditDs" showIndexAndFilterOnLoad="true" recordLimit="15" showOnLoad="false" region="center" >
+		<title translatable="true">Furniture Survey Items </title>
+		
+		
+		<field table="ta_audit" name="ta_comp_count" dataType="number" decimals="0" controlType="link" style="size:30;">
+		<title>Component Count</title>
+		<command type="openDialog" panelId="abViewdefEditformDrilldownConsole_treePanel"/>
+		</field>
+		<field table="ta_audit" name="survey_id" hidden="true"/>
+		<field table="ta_audit" name="ta_id" controlType="link" >
+		
+		<command type="openDialog" panelId="abViewdefEditformDrilldownConsole_treePanel"/>
+		</field>
+		<field table="ta_audit" name="fn_std"/>
+		<field table="ta_audit" name="ta_modular" dataType="text" readOnly="true" hidden="false">
+			<title>Modular</title>
+		</field>
+		<!-- Chard -->
+<!-- 		<field table="ta_audit" name="bl_id"/>  
+		<field table="ta_audit" name="fl_id"/> -->
+		<field table="ta_audit" name="ta_old"/>
+		<field table="ta_audit" name="tag_number"/>
+		<field table="ta_audit" name="rm_id"/>
+		<field table="ta_audit" name="status"/>
+		<field table="ta_audit" name="condition"/>
+		<field table="ta_audit" name="survey_comments"/>
+		<field table="ta_audit" name="date_last_surveyed" required="true" value=""/>
+			
+		<indexField table="ta_audit" name="ta_id"/>
+	</panel>
+	
+	<dataSource id="fnstdDS">
+		<table name="fnstd" role="main"/>
+		<field name="fn_std"/>
+		<field name="modular"/>
+	</dataSource>
+	
+	<!-- jeromejerome -->
+	<panel id="taAuditDetailsForm" type="form" columns="2"  dataSource="taAuditDs" showOnLoad="false" buttonsPosition="footer" region="center">
+		<title translatable="true" />
+		
+		<action id="back2">
+            <title translatable="true">Back</title>
+			
+			<command type="showPanel" panelId="taAuditGrid" applyParentRestriction="false" />
+			<command type="showPanel" panelId="surveyDet" show="false" applyParentRestriction="false" />
+			<command type="showPanel" panelId="surveyGrid" show="false" />
+			<command type="showPanel" panelId="taAuditDetailsForm" show="false" />
+			<command type="showPanel" panelId="abViewdefEditformDrilldownConsole_treePanel" show="false" />
+			<command type="closeDialog" panelId="abViewdefEditformDrilldownConsole_detailsPanel" />
+			
+			<command type="showPanel" panelId="ascphTaRmAudit_treePanel" show="false" applyParentRestriction="false" />
+        </action>
+        <action id="save2">
+            <title translatable="true">Save</title>
+			
+            <!--<command type="saveForm"/>
+			<command type="showPanel" panelId="surveyGrid" show="false" />
+			<command type="showPanel" panelId="taAuditDetailsForm" show="true" />
+			<command type="showPanel" panelId="taAuditGrid" applyParentRestriction="false" />
+			<command type="showPanel" panelId="surveyDet" show="true" applyParentRestriction="false" />-->
+			
+			<command type="callFunction" functionName="modCheckSave"/>
+        </action>
+		
+		<action id="comp_up" enabled="${record['ta_audit.ta_modular']=='Yes'}">
+            <title translatable="true">Add Components</title>
+			<!--<command type="saveForm"/>-->
+			<command type="showPanel" panelId="surveyGrid" show="false" />
+			<command type="showPanel" panelId="taAuditDetailsForm" show="false" />
+            <command type="showPanel" panelId="abViewdefEditformDrilldownConsole_treePanel" applyParentRestriction="true" />
+			<command type="showPanel" panelId="abViewdefEditformDrilldownConsole_detailsPanel" applyParentRestriction="true" newRecord="true"/>
+			<command type="callFunction" functionName="showCalendar()"/>
+			<command type="callFunction" functionName="addComponents()"/>
+        </action>
+		
+		<fieldset>
+			<!-- jerome jerome jerome -->
+			<title translatable="true">Furniture Details</title>
+			
+			<field table="ta_audit" name="survey_id" readOnly="true" hidden="true"/>
+			<field table="ta_audit" name="ta_id" onchange="checkInvIfcomp()"/>
+			
+				<!-- <action id="ta_gen_code"> -->
+					<!-- <title>...</title> -->
+						 <!-- <tooltip>Custom Select Value</tooltip> -->
+							 <!-- <command type="selectValue"  -->
+							<!-- fieldNames="ta_audit.ta_id"  -->
+							<!-- selectFieldNames="asc_code_gen_fil.code"  -->
+							<!-- visibleFieldNames="asc_code_gen_fil.code"  -->
+							<!-- restriction="1=1"/> -->
+				<!-- </action> -->
+			
+			<!-- </field> -->
+		
+			<field table="ta_audit" name="fn_std" required="true" readOnly="false">
+				<action>
+				<title>...</title>
+						 <tooltip>Custom Select Value</tooltip>
+							 <command type="selectValue" 
+							  autoComplete="true"
+							fieldNames="ta_audit.fn_std, ta_audit.ta_modular" 
+							selectFieldNames="fnstd.fn_std, fnstd.modular"
+							visibleFieldNames = "fnstd.fn_std, fnstd.modular, fnstd.category"
+							restriction="fnstd.modular='No' AND fnstd.asc_category LIKE 'Furniture' "/>
+				</action>
+
+				<action id="fn_std">
+					<title>...</title>
+						 <tooltip>Custom Select Value</tooltip>
+							 <command type="selectValue" 
+							  autoComplete="true"
+							fieldNames="ta_audit.fn_std, ta_audit.ta_modular" 
+							selectFieldNames="fnstd.fn_std, fnstd.modular"
+							visibleFieldNames = "fnstd.fn_std, fnstd.modular, fnstd.category"
+							restriction="fnstd.modular='No' AND fnstd.asc_category LIKE 'Furniture' "/>
+				</action>
+			</field>
+				
+				
+			
+				<!-- <action id="furn_std"> -->
+					<!-- <title>...</title> -->
+						 <!-- <tooltip>Custom Select Value</tooltip> -->
+							 <!-- <command type="selectValue"  -->
+							<!-- fieldNames="ta_audit.fn_std, ta_audit.ta_modular"  -->
+							<!-- selectFieldNames="fnstd.fn_std, fnstd.modular"  -->
+							<!-- visibleFieldNames="fnstd.fn_std, fnstd.modular, fnstd.category" -->
+							<!-- restriction="fnstd.modular='No' AND fnstd.asc_category LIKE 'Furniture' " -->
+							<!-- actionListener="keepFnStd"/> -->
+							
+				<!-- </action> -->
+			
+				<!-- <action id="furn_stdm"> -->
+					<!-- <title>...</title> -->
+						 <!-- <tooltip>Custom Select Value</tooltip> -->
+							 <!-- <command type="selectValue"  -->
+							<!-- fieldNames="ta_audit.fn_std, ta_audit.ta_modular"  -->
+							<!-- selectFieldNames="fnstd.fn_std, fnstd.modular"  -->
+							<!-- visibleFieldNames="fnstd.fn_std, fnstd.modular, fnstd.category" -->
+							<!-- restriction="fnstd.modular='Yes'" -->
+							<!-- actionListener="keepFnStd"/> -->
+				<!-- </action> -->
+		
+			<!-- </field> -->
+			
+			<field table="ta_audit" name="ta_modular" dataType="text" readOnly="true" hidden="false">
+				<title>Modular</title>
+			</field>
+			
+			<field table="ta_audit" name="asc_panel_owned" hidden="true"/>
+			<field table="ta_audit" name="asc_panel_shared" hidden="true" />
+			
+			<field table="ta_audit" name="ta_old" hidden="false"/>
+			<field table="ta_audit" name="tag_number" hidden="false"/>
+			<field table="ta_audit" name="bl_id" required="true" readOnly="true"/>
+			<field table="ta_audit" name="fl_id" required="true" readOnly="true"/>
+			<field table="ta_audit" name="rm_id" required="true" readOnly="true"/>
+			
+			<!-- <field table="ta_audit" name="em_id" hidden="true"> -->
+				<!-- <action> -->
+				<!-- </action> -->
+				<!-- <action> -->
+					<!-- <title>...</title> -->
+						 <!-- <tooltip>Custom Select Value</tooltip> -->
+							 <!-- <command type="selectValue"  -->
+							<!-- fieldNames="ta_audit.em_id"  -->
+							<!-- selectFieldNames="em.em_id"  -->
+							<!-- visibleFieldNames="em.em_id, em.em_std" -->
+							<!-- restriction="1=1"/> -->
+				<!-- </action> -->
+			<!-- </field> -->
+			
+			<field table="ta_audit" name="status"/>
+			<field table="ta_audit" name="condition"/>
+			<field table="ta_audit" name="survey_photo_ta"/>
+			<field table="ta_audit" name="survey_photo_ta2"/>
+			<field table="ta_audit" name="survey_photo_ta3"/>
+			<field table="ta_audit" name="survey_comments"/>
+			<field table="ta_audit" name="date_last_surveyed" required="true"/>
+			
+		</fieldset>
+        
+    </panel>
+	
+	<!-- ASC_PH LJM 003 -->
+	<panel id="taAuditDetailsFormMod" type="form" columns="2"  dataSource="taAuditDs" showOnLoad="false" buttonsPosition="footer" region="center">
+		<title translatable="true" />
+		
+		<action id="back3">
+            <title translatable="true">Back</title>
+			
+			<command type="showPanel" panelId="taAuditGrid" applyParentRestriction="false" />
+			<command type="showPanel" panelId="surveyDet" show="false" applyParentRestriction="false" />
+			<command type="showPanel" panelId="surveyGrid" show="false" />
+			<command type="showPanel" panelId="taAuditDetailsFormMod" show="false" />
+			<command type="showPanel" panelId="abViewdefEditformDrilldownConsole_treePanel" show="false" />
+			<command type="closeDialog" panelId="abViewdefEditformDrilldownConsole_detailsPanel" />
+			<command type="showPanel" panelId="ascphTaRmAudit_treePanel" show="false" applyParentRestriction="false" />
+        </action>
+		
+        <action id="save3">
+            <title translatable="true">Save</title>
+			
+            <!--<command type="saveForm"/>
+			<command type="showPanel" panelId="surveyGrid" show="false" />
+			<command type="showPanel" panelId="taAuditDetailsForm" show="true" />
+			<command type="showPanel" panelId="taAuditGrid" applyParentRestriction="false" />
+			<command type="showPanel" panelId="surveyDet" show="true" applyParentRestriction="false" />-->
+			
+			<command type="callFunction" functionName="modCheckSaveMod"/>
+        </action>
+		<!-- ASC_PH LJM 001 2017-03-08 -->
+		<action id="comp_up2" enabled="${record['ta_audit.ta_modular']=='Yes'}">
+            <title translatable="true">Add Components</title>
+			<!--<command type="saveForm"/>-->
+			<command type="showPanel" panelId="surveyGrid" show="false" />
+			<command type="showPanel" panelId="taAuditDetailsFormMod" show="false" />
+            <command type="showPanel" panelId="abViewdefEditformDrilldownConsole_treePanel" applyParentRestriction="true" />
+			<command type="showPanel" panelId="abViewdefEditformDrilldownConsole_detailsPanel" applyParentRestriction="true" newRecord="true"/>
+			<command type="callFunction" functionName="showCalendar()"/>
+			<command type="callFunction" functionName="addComponents()"/>
+        </action>
+		
+		<fieldset>
+			<title translatable="true">Furniture Details</title>
+			
+			<field table="ta_audit" name="survey_id" readOnly="true" hidden="true"/>
+			<field table="ta_audit" name="ta_id" onchange="checkInvIfcomp()" readOnly="true">
+				<title>Unifying Code ID</title>
+				<!-- <action> -->
+				<!-- </action> -->
+				<!-- <action id="ta_gen_code2"> -->
+					<!-- <title>...</title> -->
+						 <!-- <tooltip>Custom Select Value</tooltip> -->
+							 <!-- <command type="selectValue"  -->
+							<!-- fieldNames="ta_audit.ta_id"  -->
+							<!-- selectFieldNames="asc_code_gen_fil.code"  -->
+							<!-- visibleFieldNames="asc_code_gen_fil.code"  -->
+							<!-- restriction="1=1"/> -->
+				<!-- </action> -->
+			</field>
+		
+		<field table="ta_audit" name="fn_std" required="true" readOnly="false">
+		<!-- jerome -->
+		<action>
+			<title>...</title>
+                 <tooltip>Custom Select Value</tooltip>
+                     <command type="selectValue" 
+                    fieldNames="ta_audit.fn_std, ta_audit.ta_modular" 
+                    selectFieldNames="fnstd.fn_std, fnstd.modular" 
+                    visibleFieldNames="fnstd.fn_std, fnstd.modular, fnstd.category"
+                    restriction="fnstd.modular='Yes'"
+					actionListener="keepFnStd"/>
+        </action>
+		<!--<action id="furn_std_2">
+            <title>...</title>
+                 <tooltip>Custom Select Value</tooltip>
+                     <command type="selectValue" 
+                    fieldNames="ta_audit.fn_std, ta_audit.ta_modular" 
+                    selectFieldNames="fnstd.fn_std, fnstd.modular" 
+                    visibleFieldNames="fnstd.fn_std, fnstd.modular, fnstd.category"
+                    restriction="fnstd.modular='No'"
+					actionListener="keepFnStd"/>
+        </action>-->
+		<action id="furn_stdm_2">
+            <title>...</title>
+                 <tooltip>Custom Select Value</tooltip>
+                     <command type="selectValue" 
+                    fieldNames="ta_audit.fn_std, ta_audit.ta_modular" 
+                    selectFieldNames="fnstd.fn_std, fnstd.modular" 
+                    visibleFieldNames="fnstd.fn_std, fnstd.modular, fnstd.category"
+                    restriction="fnstd.modular='Yes'"
+					actionListener="keepFnStd"/>
+        </action>
+
+		</field>
+		<field table="ta_audit" name="ta_modular" dataType="text" readOnly="true" hidden="false">
+			<title>Modular</title>
+		</field>
+		<field table="ta_audit" name="asc_panel_owned" />
+		<field table="ta_audit" name="asc_panel_shared" />
+		<field table="ta_audit" name="ta_old" hidden="true"/>
+		<field table="ta_audit" name="tag_number" hidden="true"/>
+		<field table="ta_audit" name="bl_id" required="true" readOnly="true"/>
+		<field table="ta_audit" name="fl_id" required="true" readOnly="true"/>
+		<field table="ta_audit" name="rm_id" required="true" readOnly="true"/>
+			
+		<!-- <field table="ta_audit" name="em_id" hidden="true"> -->
+			<!-- <action> -->
+			<!-- </action> -->
+			<!-- <action> -->
+				<!-- <title>...</title> -->
+					 <!-- <tooltip>Custom Select Value</tooltip> -->
+						 <!-- <command type="selectValue"  -->
+						<!-- fieldNames="ta_audit.em_id"  -->
+						<!-- selectFieldNames="em.em_id"  -->
+						<!-- visibleFieldNames="em.em_id, em.em_std" -->
+						<!-- restriction="1=1"/> -->
+			<!-- </action> -->
+		<!-- </field> -->
+			
+			<field table="ta_audit" name="status" />
+			<field table="ta_audit" name="condition"/>
+			<field table="ta_audit" name="survey_photo_ta"/>
+			<field table="ta_audit" name="survey_photo_ta2"/>
+			<field table="ta_audit" name="survey_photo_ta3"/>
+			<field table="ta_audit" name="survey_comments"/>
+			<field table="ta_audit" name="date_last_surveyed" required="true"/>
+			
+		</fieldset>
+        
+    </panel>
+	<!--#2 ASC_PH LJM 2016-06-08 -->
+	<!--#2 ASC_PH LJM 2017-03-08 -->
+	
+
+    <panel id="abViewdefEditformDrilldownConsole_detailsPanel" type="form"  dataSource="abViewdefEditformDrilldownConsole_ds_1" showOnLoad="false" labelsPosition="left" columns="2" region="center">
+	<action id="abViewdefEditformDrilldownConsole_cancel">
+            <title translatable="true">Back</title>
+            <command type="showPanel" panelId="abViewdefEditformDrilldownConsole_detailsPanel" show="false"/>
+			<command type="showPanel" panelId="taAuditDetailsFormMod" applyParentRestriction="${record['ta_audit_comp.ta_comp_id'] == ''}"/>
+			<command type="showPanel" panelId="abViewdefEditformDrilldownConsole_treePanel" applyParentRestriction="false"/>
+        </action> 
+        <action id="abViewdefEditformDrilldownConsole_save">
+            <title translatable="true">Save</title>
+            <command type="saveForm"/>
+            <command type="showPanel" panelId="abViewdefEditformDrilldownConsole_treePanel" applyParentRestriction="false"/>
+        </action>
+		
+		<action id="addCompButton3" enabled="${record['ta_audit_comp.ta_comp_id'] != ''}" hidden="false" >
+		<!--<action id="addCompButton2" enabled="true" hidden="false" >-->
+			<title>Add Component</title>
+			
+			<!--<command type="showPanel" panelId="taAuditGrid" show="false" />
+			<command type="showPanel" panelId="taAuditDetailsForm" show="false"/>-->
+			<command type="showPanel" panelId="abViewdefEditformDrilldownConsole_treePanel"  applyParentRestriction="false"/>
+			<command type="showPanel" panelId="abViewdefEditformDrilldownConsole_detailsPanel" newRecord="true"/>
+			
+			<command type="callFunction" functionName="addComp" />
+			<!--<command type="showPanel" panelId="surveyDet" show="false"/>
+			 <command type="showPanel" panelId="ascphTaRmAudit_treePanel" show="false"/>-->
+		</action>
+		
+        <action id="abViewdefEditformDrilldownConsole_delete"  enabled="${record['ta_audit_comp.ta_comp_id'] != ''}">
+            <title translatable="true">Delete</title>
+            <command type="deleteRecord"/>
+            <command type="showPanel" panelId="abViewdefEditformDrilldownConsole_detailsPanel" show="false"/>
+            <command type="showPanel" panelId="abViewdefEditformDrilldownConsole_treePanel" applyParentRestriction="false"/>
+			<command type="showPanel" panelId="taAuditGrid" applyParentRestriction="false"/>
+        </action>
+		
+	<fieldset>
+        <title translatable="true">Furniture Component Form</title>
+		
+           
+        <field name="survey_id" table="ta_audit_comp" readOnly="true"/>
+        <field name="ta_id" table="ta_audit_comp" readOnly="true"/>
+		
+        <field name="ta_comp_id" table="ta_audit_comp"/>
+		
+		<!-- <action> -->
+            <!-- <title>...</title> -->
+                 <!-- <tooltip>Custom Select Value</tooltip> -->
+                     <!-- <command type="selectValue"  -->
+                    <!-- fieldNames="ta_audit_comp.ta_comp_id"  -->
+                    <!-- selectFieldNames="asc_code_gen_fil.code"  -->
+                    <!-- visibleFieldNames="asc_code_gen_fil.code"  -->
+                    <!-- restriction="1=1"/> -->
+        <!-- </action> -->
+		<!-- </field> -->
+		
+		<!-- rofel component standard -->
+		 <field name="cmp_std" table="ta_audit_comp" required="true">
+			<action>
+			<title>...</title>
+					 <tooltip>Custom Select Value</tooltip>
+						 <command type="selectValue" 
+						fieldNames="ta_audit_comp.cmp_std" 
+						selectFieldNames="asc_cmpstd.cmp_std" 
+						visibleFieldNames="asc_cmpstd.cmp_std, asc_cmpstd.category"/>
+			</action>
+			<action id="comp_fnstd">
+				<title>...</title>
+					 <tooltip>Custom Select Value</tooltip>
+						 <command type="selectValue" 
+						fieldNames="ta_audit_comp.cmp_std" 
+						selectFieldNames="asc_cmpstd.cmp_std" 
+						visibleFieldNames="asc_cmpstd.cmp_std, asc_cmpstd.category"/>
+			</action>
+		</field>
+		
+		<field table="ta_audit_comp" name="ta_old"/>
+        <field table="ta_audit_comp" name="tag_number"/>
+		<field name="condition" table="ta_audit_comp"/>
+        <field name="status" table="ta_audit_comp"/>
+        
+		<field name="survey_date" table="ta_audit_comp" />
+		</fieldset>
+    </panel>
+	
+	<!-- ASC_PH LJM 002 2017-03-08 -->
+	<panel id="abViewdefEditformDrilldownConsole_treePanel" type="grid" dataSource="abViewdefEditformDrilldownConsole_ds_0" showOnLoad="false" selectionEnabled="true" region="center">
+        <title translatable="true">Furniture Components</title>
+       
+        <action id="abViewdefEditformDrilldownConsole_refresh">
+            <title translatable="true">Refresh</title>
+            <command type="showPanel" panelId="abViewdefEditformDrilldownConsole_treePanel"/>
+        </action>    
+		
+        <field table="ta_audit_comp" name="survey_id" controlType="link">
+			<command type="showPanel" panelId="surveyGrid" show="false" />
+			<command type="showPanel" panelId="taAuditDetailsForm" show="false" />
+            <command type="showPanel" panelId="abViewdefEditformDrilldownConsole_treePanel" applyParentRestriction="true" />
+			<command type="showPanel" panelId="abViewdefEditformDrilldownConsole_detailsPanel" applyParentRestriction="true" newRecord="false"/>
+			<command type="callFunction" functionName="showCalendar()"/>
+			<command type="callFunction" functionName="addComponents()"/>
+            <!--<command type="openDialog" panelId="abViewdefEditformDrilldownConsole_detailsPanel" />-->
+			
+        </field>
+        <field table="ta_audit_comp" name="ta_id" controlType="link">
+		
+            <command type="showPanel" panelId="surveyGrid" show="false" />
+			<command type="showPanel" panelId="taAuditDetailsForm" show="false" />
+            <command type="showPanel" panelId="abViewdefEditformDrilldownConsole_treePanel" applyParentRestriction="true" />
+			<command type="showPanel" panelId="abViewdefEditformDrilldownConsole_detailsPanel" applyParentRestriction="true" newRecord="false"/>
+			<command type="callFunction" functionName="showCalendar()"/>
+			<command type="callFunction" functionName="addComponents()"/>
+            <!--<command type="openDialog" panelId="abViewdefEditformDrilldownConsole_detailsPanel" />-->
+        </field>
+        <field table="ta_audit_comp" name="ta_comp_id" controlType="link">
+            <command type="showPanel" panelId="surveyGrid" show="false" />
+			<command type="showPanel" panelId="taAuditDetailsForm" show="false" />
+            <command type="showPanel" panelId="abViewdefEditformDrilldownConsole_treePanel" applyParentRestriction="true" />
+			<command type="showPanel" panelId="abViewdefEditformDrilldownConsole_detailsPanel" applyParentRestriction="true" newRecord="false"/>
+			<command type="callFunction" functionName="showCalendar()"/>
+			<command type="callFunction" functionName="addComponents()"/>
+            <!--<command type="openDialog" panelId="abViewdefEditformDrilldownConsole_detailsPanel" />-->
+        </field>
+       
+        <field table="ta_audit_comp" name="condition" controlType="link">
+            <command type="showPanel" panelId="surveyGrid" show="false" />
+			<command type="showPanel" panelId="taAuditDetailsForm" show="false" />
+            <command type="showPanel" panelId="abViewdefEditformDrilldownConsole_treePanel" applyParentRestriction="true" />
+			<command type="showPanel" panelId="abViewdefEditformDrilldownConsole_detailsPanel" applyParentRestriction="true" newRecord="false"/>
+			<command type="callFunction" functionName="showCalendar()"/>
+			<command type="callFunction" functionName="addComponents()"/>
+            <!--<command type="openDialog" panelId="abViewdefEditformDrilldownConsole_detailsPanel" />-->
+        </field>
+      
+		<!-- rofel -->
+		 <field table="ta_audit_comp" name="cmp_std" controlType="link">
+            <command type="showPanel" panelId="surveyGrid" show="false" />
+			<command type="showPanel" panelId="taAuditDetailsForm" show="false" />
+            <command type="showPanel" panelId="abViewdefEditformDrilldownConsole_treePanel" applyParentRestriction="true" />
+			<command type="showPanel" panelId="abViewdefEditformDrilldownConsole_detailsPanel" applyParentRestriction="true" newRecord="false"/>
+			<command type="callFunction" functionName="showCalendar()"/>
+			<command type="callFunction" functionName="addComponents()"/>
+            <!--<command type="openDialog" panelId="abViewdefEditformDrilldownConsole_detailsPanel" />-->
+        </field>
+		
+        <!--<field table="ta_audit_comp" name="rm_id" controlType="link">
+            <command type="showPanel" panelId="abViewdefEditformDrilldownConsole_detailsPanel" />
+        </field>-->
+        <field table="ta_audit_comp" name="status" controlType="link">
+            <command type="showPanel" panelId="surveyGrid" show="false" />
+			<command type="showPanel" panelId="taAuditDetailsForm" show="false" />
+            <command type="showPanel" panelId="abViewdefEditformDrilldownConsole_treePanel" applyParentRestriction="true" />
+			<command type="showPanel" panelId="abViewdefEditformDrilldownConsole_detailsPanel" applyParentRestriction="true" newRecord="false"/>
+			<command type="callFunction" functionName="showCalendar()"/>
+			<command type="callFunction" functionName="addComponents()"/>
+            <!--<command type="openDialog" panelId="abViewdefEditformDrilldownConsole_detailsPanel" />-->
+        </field>
+        <field table="ta_audit_comp" name="survey_date" controlType="link">
+            <command type="showPanel" panelId="surveyGrid" show="false" />
+			<command type="showPanel" panelId="taAuditDetailsForm" show="false" />
+            <command type="showPanel" panelId="abViewdefEditformDrilldownConsole_treePanel" applyParentRestriction="true" />
+			<command type="showPanel" panelId="abViewdefEditformDrilldownConsole_detailsPanel" applyParentRestriction="true" newRecord="false"/>
+			<command type="callFunction" functionName="showCalendar()"/>
+			<command type="callFunction" functionName="addComponents()"/>
+            <!--<command type="openDialog" panelId="abViewdefEditformDrilldownConsole_detailsPanel" />-->
+        </field>
+        <field table="ta_audit_comp" name="ta_old" controlType="link">
+            <command type="showPanel" panelId="surveyGrid" show="false" />
+			<command type="showPanel" panelId="taAuditDetailsForm" show="false" />
+            <command type="showPanel" panelId="abViewdefEditformDrilldownConsole_treePanel" applyParentRestriction="true" />
+			<command type="showPanel" panelId="abViewdefEditformDrilldownConsole_detailsPanel" applyParentRestriction="true" newRecord="false"/>
+			<command type="callFunction" functionName="showCalendar()"/>
+			<command type="callFunction" functionName="addComponents()"/>
+            <!--<command type="openDialog" panelId="abViewdefEditformDrilldownConsole_detailsPanel" />-->
+        </field>
+        <field table="ta_audit_comp" name="tag_number" controlType="link">
+            <command type="showPanel" panelId="surveyGrid" show="false" />
+			<command type="showPanel" panelId="taAuditDetailsForm" show="false" />
+            <command type="showPanel" panelId="abViewdefEditformDrilldownConsole_treePanel" applyParentRestriction="true" />
+			<command type="showPanel" panelId="abViewdefEditformDrilldownConsole_detailsPanel" applyParentRestriction="true" newRecord="false"/>
+			<command type="callFunction" functionName="showCalendar()"/>
+			<command type="callFunction" functionName="addComponents()"/>
+            <!--<command type="openDialog" panelId="abViewdefEditformDrilldownConsole_detailsPanel" />-->
+        </field>
+        <indexField table="ta_audit_comp" name="survey_id"/>
+    </panel>
+    
+	
+	<!--#2 LESTER 06-13-2016 END-->
+	
+	
+	
+	<panel id="survey_details" type="form" dataSource="survey_detailsDs" showOnLoad="false" columns="2">
+		<title>Survey Details</title>
+		<action id="save">
+            <title translatable="true">Save</title>
+            <command type="saveForm"/>
+            <command type="closeDialog"/>
+        </action>
+	</panel>
+	
+	<message name="closeActionConfirmMessage" translatable="true">This action will update the Furniture table with the results of this survey. Proceed?</message>
+
+</view>
